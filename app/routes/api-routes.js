@@ -189,8 +189,8 @@ module.exports = function(app) {
             res.json(data);
         })
 
-        // eventCreated.addressOne eventCreated.addressTwo, eventCreated.city, eventCreated.state, 
-        var params = { status: eventCreated.eventName + "\n" + eventCreated.zipCode + "\n" + eventCreated.cleanupDate }
+        var params = { status: eventCreated.eventName + "\n" + eventCreated.addressOne + "\n" + eventCreated.city + "\n" + eventCreated.cleanupDate +
+                     "\n" + eventCreated.cleanupTime }
 
         T.post('statuses/update', params, function(err, data, response) {
             console.log(data)

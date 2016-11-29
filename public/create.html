@@ -6,7 +6,9 @@
   <link rel="stylesheet" type="text/css" href="green.css">
 <!--  google fonts -->
 <link href="https://fonts.googleapis.com/css?family=Arya|Averia+Gruesa+Libre|Crete+Round|Delius+Unicase|Goblin+One|Montserrat|Seymour+One" rel="stylesheet">
-  <!--  //materialize -->
+  <!--  //materialize icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
@@ -94,7 +96,7 @@
       </div>
 
 
-     <button class="btn waves-effect waves-light right" type="submit" name="action" id="submitBTN">Submit
+     <button class="btn waves-effect waves-light right green accent-4" type="submit" name="action" id="submitBTN">Submit
      <i class="material-icons right">send</i>
      </button>    
 
@@ -143,7 +145,10 @@ $( document ).ready(function() {
           $.post(currentURL + "/api/eventsCreated", newEvent, function(data){
             console.log(data);
           }); //end POST 
+  alert("Your event has been added, thanks!");
   });//end submitBTN
+
+
 }); //end document.ready
 </script>
 
