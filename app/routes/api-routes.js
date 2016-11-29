@@ -49,7 +49,7 @@ module.exports = function(app) {
     passport.use(new Strategy({
             consumerKey: '3YQoTNAeLXqedFytaYsm7XAqv',
             consumerSecret: 'lXebEZx5rv6ToeLeXHNX43PTsCYgQZnhBxeRwNmtC9FaQgExc5',
-            callbackURL: 'http://localhost:8080/login/twitter/return'
+            callbackURL: 'http://litterbot.herokuapp.com/login/twitter/return'
         },
         function(token, tokenSecret, profile, cb) {
             // In this example, the user's Twitter profile is supplied as the user
