@@ -71,15 +71,15 @@ module.exports = function(app) {
         cb(null, obj);
     });
 
-    app.use(cookieSession({
-        name: 'session',
-        keys: ['key1', 'key2'],
+    // app.use(cookieSession({
+    //     name: 'session',
+    //     keys: ['key1', 'key2'],
 
-        // Cookie Options 
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours 
-    }))
+    //     // Cookie Options 
+    //     maxAge: 24 * 60 * 60 * 1000 // 24 hours 
+    // }))
     app.use(require('cookie-parser')());
-    // app.use(require("express-session")({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+    app.use(require("express-session")({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
     // Initialize Passport and restore authentication state, if any, from the
     // session.
     app.use(passport.initialize());
