@@ -8,7 +8,6 @@ var Strategy = require('passport-twitter').Strategy;
 var path = require('path');
 var StrategyLocal = require('passport-local').Strategy;
 var db = require('../db');
-var cookieSession = require('cookie-session')
 
 // Twitter API
 // =============================================================
@@ -71,13 +70,6 @@ module.exports = function(app) {
         cb(null, obj);
     });
 
-    // app.use(cookieSession({
-    //     name: 'session',
-    //     keys: ['key1', 'key2'],
-
-    //     // Cookie Options 
-    //     maxAge: 24 * 60 * 60 * 1000 // 24 hours 
-    // }))
     app.use(require('cookie-parser')());
     app.use(require("express-session")({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
     // Initialize Passport and restore authentication state, if any, from the
@@ -185,8 +177,7 @@ module.exports = function(app) {
 
     // ===========================================
 
-    app.use(fileUpload());
-
+    
 
     app.post('/api/eventscreated', function(req, res) {
 
@@ -198,7 +189,17 @@ module.exports = function(app) {
             res.json(data);
         })
 
+        // eventCreated.addressOne eventCreated.addressTwo, eventCreated.city, eventCreated.state, 
+        var params = { status: eventCreated.eventName + "\n" + eventCreated.zipCode + "\n" + eventCreated.cleanupDate }
+
+        T.post('statuses/update', params, function(err, data, response) {
+            console.log(data)
+        })
+
     });
+
+
+    app.use(fileUpload());
 
     app.post('/upload', function(req, res) {
 
@@ -227,7 +228,7 @@ module.exports = function(app) {
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.send('File uploaded!');
+                res.send('File uploaded to Twitter!');
             }
             setTimeout(tweetContent, 10000);
             // Delete the image after 24 hours
@@ -245,7 +246,7 @@ module.exports = function(app) {
                 T.post('media/metadata/create', meta_params, function(err, data, response) {
                     if (!err) {
                         // now we can reference the media and post a tweet (media will attach to the tweet) 
-                        var params = { status: cleanup.location + "/n" + cleanup.description, media_ids: [mediaIdStr] }
+                        var params = { status: cleanup.location + "\n" + cleanup.description, media_ids: [mediaIdStr] }
 
                         T.post('statuses/update', params, function(err, data, response) {
                             console.log(data)

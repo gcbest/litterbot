@@ -28,10 +28,10 @@
   </nav>
 
   <!-- //form to enter location and upload picture-->
- <div class="container">
+ <!-- <div class="container">
  <h3>Help us find spots that need a cleanup.</h3>
  <br>
- <h5 id="uploadForm">Enter the location of the site that needs a cleanup</h5>
+ 
  <br>
  <div class="row">
     <div class="input-field col s6">
@@ -52,17 +52,19 @@
     </div>
 </div>
 <br>
-<h5 id="uploadForm"> Upload a picture of the place that needs a cleanup.</h5>
+
 </div>
 
- <br>
+ <br> -->
 <div class="container">
+
+  <h3>Help us find spots that need a cleanup.</h3>
+    <h5 id="uploadForm">Enter the location of the site that needs a cleanup</h5>
     <form action="/upload" method="POST" encType="multipart/form-data">
-      Location:<br>
-      <input type="text" name="location"><br>
-      Description:<br>
-      <input type="text" name="description"><br>
-      Image:<br>
+      <input type="text" name="location" placeholder="Location"><br>
+      <input type="text" name="description" placeholder="Description"><br>
+      <h5 id="uploadForm"> Upload a picture of the place that needs a cleanup.</h5><br>
+      <h6>Image:</h6><br>
       <input type="file" name="upload_image_file"/>
       <input type="submit" value="Submit">
     </form>
