@@ -33,7 +33,12 @@
   </div>
 
   <div id="map" style="width:100%;height:500px"></div>
+  <div class="row">
+    <div class="col s12 m12">  
+      <div id="eventsShown"></div>
+    </div>
 
+  </div>
     
 
   <script type="text/javascript" src="green.js"></script>
@@ -42,6 +47,40 @@
  
 <script type="text/javascript">
 // var express = require('express');
+var currentURL = window.location.origin;
+var eventsDisplayed = [];
+  $.ajax({ 
+    url: currentURL +"/api/eventsCreated",
+  }).done(function( data ) {
+    console.log(data);
+
+    for(i=0; i<data.length; i++){
+
+      var eachEvent = data[i].eventName + 
+                      data[i].addressOne;
+      console.log("================")
+      console.log("Events Displayed: ", eventsDisplayed);
+      console.log("Each Event: ", eachEvent);
+      eventsDisplayed.push(eachEvent);
+
+      console.log("================")
+      console.log(data[i].eventName);
+      console.log(data[i].addressOne);
+      console.log(data[i].addressTwo);
+      console.log(data[i].city);
+      console.log(data[i].state);
+      console.log(data[i].zipCode);
+      console.log(data[i].cleanupDate);
+      console.log(data[i].cleanupTime);
+      console.log(data[i].eventDescription);
+      console.log(data[i].userName);
+
+      $("#eventsShown").append(eventsDisplayed);
+
+    }
+
+  });
+
 
  var latLng = [];
   // Try HTML5 geolocation.
