@@ -20,6 +20,12 @@ var orm = {
         });
     },
 
+    events: function(cb) {
+        var s = 'SELECT * FROM cleanupEvents';
+        connection.query(s, function(err, res) {
+            cb(res);
+        });
+    },
     // Here our ORM is creating a simple method for performing a query of a single character in the table.
     // Again, we make use of the callback to grab a specific character from the database. 
 
