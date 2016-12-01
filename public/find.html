@@ -164,9 +164,21 @@ var currentURL = window.location.origin;
         var latParse = parseFloat(eventlat)
         var lngParse = parseFloat(eventlng)
         var position = new google.maps.LatLng(latParse,lngParse);
+
+         var defaultIcon = ("https://raw.githubusercontent.com/gcbest/litterbot/master/public/images/Imported%20piskel.gif")
+        // Create a "highlighted location" marker color for when the user
+        // mouses over the marker.
+        var highlightedIcon = ("https://raw.githubusercontent.com/bernerd252/secretbeer/master/images/beerBottleHover.png")
         
-        var eventMarker = new google.maps.Marker({position: position, title: eventName, date: cleanupDate, description: cleanupDescription, address: address });
+        var eventMarker = new google.maps.Marker({icon: defaultIcon, animation: google.maps.Animation.DROP, position: position, title: eventName, date: cleanupDate, description: cleanupDescription, address: address });
         eventMarker.setMap(map)
+
+        eventMarker.addListener('mouseover', function() {
+            this.setIcon(highlightedIcon);
+          });
+          eventMarker.addListener('mouseout', function() {
+            this.setIcon(defaultIcon);
+          });
         
         markers.push(eventMarker)
         var largeInfowindow = new google.maps.InfoWindow();
