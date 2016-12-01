@@ -31,7 +31,7 @@
   <div class="container">
     <h4>Check Out These Upcoming Cleanup Events!</h4>
   </div>
-
+   
   <div id="map" style="width:100%;height:500px"></div>
   <div class="row">
     <div class="col s12 m12">  
@@ -49,37 +49,9 @@
 // var express = require('express');
 var currentURL = window.location.origin;
 var eventsDisplayed = [];
-  $.ajax({ 
-    url: currentURL +"/api/eventsCreated",
-  }).done(function( data ) {
-    console.log(data);
+ 
 
-    for(i=0; i<data.length; i++){
 
-      var eachEvent = data[i].eventName + 
-                      data[i].addressOne;
-      console.log("================")
-      console.log("Events Displayed: ", eventsDisplayed);
-      console.log("Each Event: ", eachEvent);
-      eventsDisplayed.push(eachEvent);
-
-      console.log("================")
-      console.log(data[i].eventName);
-      console.log(data[i].addressOne);
-      console.log(data[i].addressTwo);
-      console.log(data[i].city);
-      console.log(data[i].state);
-      console.log(data[i].zipCode);
-      console.log(data[i].cleanupDate);
-      console.log(data[i].cleanupTime);
-      console.log(data[i].eventDescription);
-      console.log(data[i].userName);
-
-      $("#eventsShown").append(eventsDisplayed);
-
-    }
-
-  });
 
 
  var latLng = [];
@@ -93,25 +65,88 @@ var eventsDisplayed = [];
        var userLng = parseFloat(lng);
       
   var myCenter = new google.maps.LatLng(userLat,userLng);
+  var geocoder = new google.maps.Geocoder();
   var mapCanvas = document.getElementById("map");
   var mapOptions = {center: myCenter, zoom: 5};
   var map = new google.maps.Map(mapCanvas, mapOptions);
   var marker = new google.maps.Marker({position:myCenter});
   marker.setMap(map);
 
-  app.get('/api/cleanups', function(req, res){
-    res.json(cleanups);
-    console.log(res)
-
-  });
+ 
+  
 
 
 });
  }
+
+  
+
+   $.ajax({ 
+    url: currentURL +"/api/eventsCreated",
+  }).done(function( data ) {
+    console.log(data);
+
+    var markers = [];
+
+    for(i=0; i<data.length; i++){
+
+      var eachEvent = data[i].eventName + 
+                      data[i].addressOne;
+      // console.log("================")
+      // console.log("Events Displayed: ", eventsDisplayed);
+      // console.log("Each Event: ", eachEvent);
+      // eventsDisplayed.push(eachEvent);
+
+      // console.log("================")
+      // console.log(data[i].eventName);
+      // console.log(data[i].addressOne);
+      // console.log(data[i].addressTwo);
+      // console.log(data[i].city);
+      // console.log(data[i].state);
+      // console.log(data[i].zipCode);
+      // console.log(data[i].cleanupDate);
+      // console.log(data[i].cleanupTime);
+      // console.log(data[i].eventDescription);
+      // console.log(data[i].userName);
+
+      $("#eventsShown").append(eventsDisplayed);
+      var address = (data[i].addressOne + ", " + data[i].city + ", " + data[i].state)
+      console.log(address)
+
+      var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyAF1z4D8_qAlnNA6PDoT8UrYOjhajWyP1Y"
+      $.ajax({url: queryURL, method: 'GET'}).done(function(response){ 
+       
+       console.log(response) 
+        // Create a "highlighted location" marker color for when the user
+        // mouses over the marker.
+        
+        var eventlat = (response.results[0].geometry.location.lat)
+        var eventlng = (response.results[0].geometry.location.lng)
+        var latParse = parseFloat(eventlat)
+        var lngParse = parseFloat(eventlng)
+        var position = new google.maps.LatLng(latParse,lngParse);
+        
+        var marker = new google.maps.Marker({
+            position: position,
+            
+             });
+        
+        markers.push(marker)
+         
+        
+       
+      
+      });
+
+
+  }
+});
+
+
   
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF1z4D8_qAlnNA6PDoT8UrYOjhajWyP1Y"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHu9pE7HmB6IARcecYVnGx8sbfgATG6zw"></script>
 
 </body>
 </html>
