@@ -104,23 +104,13 @@ var currentURL = window.location.origin;
   var myCenter = new google.maps.LatLng(userLat,userLng);
   var geocoder = new google.maps.Geocoder();
   var mapCanvas = document.getElementById("map");
-  var mapOptions = {center: myCenter, zoom: 5};
+  var mapOptions = {center: myCenter, zoom: 10};
   var map = new google.maps.Map(mapCanvas, mapOptions);
-  var marker = new google.maps.Marker({position:myCenter});
-  marker.setMap(map);
+  // var marker = new google.maps.Marker({position:myCenter});
+  // marker.setMap(map);
 
  
-  
-
-
-});
- }
-
-  
-
-   $.ajax({ 
-    url: currentURL +"/api/eventsCreated",
-  }).done(function( data ) {
+   
     console.log(data);
 
     var markers = [];
@@ -158,8 +148,11 @@ var currentURL = window.location.origin;
 
       var address = (data[i].addressOne + ", " + data[i].city + ", " + data[i].state)
       console.log(address)
-
-      var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyAF1z4D8_qAlnNA6PDoT8UrYOjhajWyP1Y"
+      var eventName = (data[i].eventName)
+      var cleanupDate = (data[i].cleanupDate + " " + data[i].cleanupTime)
+      
+      var cleanupDescription = (data[i].eventDescription)
+      var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyDDbTk5_BebVOdBaL8INYJ7F_M4DuvwL6g"
       $.ajax({url: queryURL, method: 'GET'}).done(function(response){ 
        
        console.log(response) 
@@ -172,14 +165,29 @@ var currentURL = window.location.origin;
         var lngParse = parseFloat(eventlng)
         var position = new google.maps.LatLng(latParse,lngParse);
         
-        var marker = new google.maps.Marker({
-            position: position,
-            
-             });
+        var eventMarker = new google.maps.Marker({position: position, title: eventName, date: cleanupDate, description: cleanupDescription, address: address });
+        eventMarker.setMap(map)
         
-        markers.push(marker)
+        markers.push(eventMarker)
+        var largeInfowindow = new google.maps.InfoWindow();
+         eventMarker.addListener('click', function() {
+            populateInfoWindow(this, largeInfowindow);
+          });
+
+          function populateInfoWindow(eventMarker, infowindow) {
+        // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != eventMarker) {
+          infowindow.marker = eventMarker;
+          infowindow.setContent('<div><h5 id="popupHeader">' + eventMarker.title + '</h5><br><b>' + eventMarker.address + "<br><br>" + eventMarker.date + "<br><br>" + eventMarker.description + '</b></div>');
+          infowindow.open(map, eventMarker);
+          // Make sure the marker property is cleared if the infowindow is closed.
+          infowindow.addListener('closeclick', function() {
+            infowindow.marker = null;
+          });
+        }
+      }
          
-        
+         
        
       
       });
@@ -187,7 +195,16 @@ var currentURL = window.location.origin;
 
   }
 });
+}
+
+
 });
+ 
+
+  
+
+
+
 
 
 
