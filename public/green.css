@@ -78,3 +78,10 @@ a{
 	font-family: 'Ubuntu', sans-serif;
 	font-size: large;
 }
+
+#eventsShown{
+	margin: 0px auto;
+	text-align: center;
+	width: 50%;
+
+}
