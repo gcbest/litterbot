@@ -1,0 +1,20 @@
+{
+  "name": "litterbot",
+  "description": "platform that allows users to upload images and information about a certain area that needs cleaning",
+  "main": "server.js",
+  "authors": [
+    "Adriana Castro <castrocadriana@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/gcbest/litterbot",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sweetalert": "^1.1.3"
+  }
+}
