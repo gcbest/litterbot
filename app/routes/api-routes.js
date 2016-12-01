@@ -23,13 +23,13 @@ var T = new Twit({
 // =============================================================
 module.exports = function(app) {
 
-    // Search for Specific Character (or all characters) then provides JSON
+    // Search for Specific Cleanup (or all characters) then provides JSON
     app.get('/api/:cleanups?', function(req, res) {
         console.log(req.body)
             // If the user provides a specific character in the URL...
         if (req.params.cleanups) {
 
-            // Then display the JSON for ONLY that character.
+            // Then display the JSON for ONLY that cleanup.
             // (Note how we're using the ORM here to run our searches)
             orm.searchCleanup(req.params.cleanups, function(data) {
                 res.json(data);
