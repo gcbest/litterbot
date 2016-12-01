@@ -29,17 +29,15 @@
   </nav>
 
   <div class="container">
-    <h4>Check Out These Upcoming Cleanup Events!</h4>
-  </div>
+    <h1>Check Out These Upcoming Cleanup Events!</h1>
+    <div id="map" style="width:100%;height:500px"></div>
 
-  <div id="map" style="width:100%;height:500px"></div>
-  <div class="row">
-    <div class="col s12 m12">  
-      <div id="eventsShown"></div>
+    <div class="row">
+      <div class="col s12 m12">  
+        <div id="eventsShown"></div>
+      </div>
     </div>
-
-  </div>
-    
+  </div>  
 
   <script type="text/javascript" src="green.js"></script>
  
@@ -48,7 +46,7 @@
 <script type="text/javascript">
 // var express = require('express');
 var currentURL = window.location.origin;
-var eventsDisplayed = [];
+// var eventsDisplayed = [];
   $.ajax({ 
     url: currentURL +"/api/eventsCreated",
   }).done(function( data ) {
@@ -56,26 +54,35 @@ var eventsDisplayed = [];
 
     for(i=0; i<data.length; i++){
 
-      var eachEvent = data[i].eventName + 
-                      data[i].addressOne;
-      console.log("================")
-      console.log("Events Displayed: ", eventsDisplayed);
-      console.log("Each Event: ", eachEvent);
-      eventsDisplayed.push(eachEvent);
+      // var eachEvent = $("<h1>");
+      // eachEvent.attr('class', 'eventHeader')    
+      $("#eventsShown").append("<h4 class='eventsHeader'>" +data[i].eventName + "</h4><br>");
+      $("#eventsShown").append("<b>Location:</b><br>" + data[i].addressOne + "<br>");
+      $("#eventsShown").append(data[i].city + ", " + data[i].state + " " + data[i].zipCode+ "<br>");
+      $("#eventsShown").append("<b>Date:</b><br>" + data[i].cleanupDate + "<br>");
+      $("#eventsShown").append("<b>Time</b><br>" + data[i].cleanupTime + "<br>");
+      $("#eventsShown").append("<b>Description:</b><br>" + data[i].eventDescription + "<br>");
+      $("#eventsShown").append("<b>Hosted By:</b><br>" + data[i].userName + "<br>");
+      $("#eventsShown").append("<hr>");
 
-      console.log("================")
-      console.log(data[i].eventName);
-      console.log(data[i].addressOne);
-      console.log(data[i].addressTwo);
-      console.log(data[i].city);
-      console.log(data[i].state);
-      console.log(data[i].zipCode);
-      console.log(data[i].cleanupDate);
-      console.log(data[i].cleanupTime);
-      console.log(data[i].eventDescription);
-      console.log(data[i].userName);
+      // console.log("================")
+      // console.log("Events Displayed: ", eventsDisplayed);
+      // console.log("Each Event: ", eachEvent);
+      // eventsDisplayed.push(eachEvent);
 
-      $("#eventsShown").append(eventsDisplayed);
+      // console.log("================")
+      // console.log(data[i].eventName);
+      // console.log(data[i].addressOne);
+      // console.log(data[i].addressTwo);
+      // console.log(data[i].city);
+      // console.log(data[i].state);
+      // console.log(data[i].zipCode);
+      // console.log(data[i].cleanupDate);
+      // console.log(data[i].cleanupTime);
+      // console.log(data[i].eventDescription);
+      // console.log(data[i].userName);
+
+      // $("#eventsShown").append(eventsDisplayed);
 
     }
 
