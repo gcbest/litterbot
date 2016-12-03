@@ -18,7 +18,7 @@ var T = new Twit({
     access_token: keys.twitterKeys.access_token_key,
     access_token_secret: keys.twitterKeys.access_token_secret
 
-  //   consumer_key: '3YQoTNAeLXqedFytaYsm7XAqv',
+  // consumer_key: '3YQoTNAeLXqedFytaYsm7XAqv',
   // consumer_secret: 'lXebEZx5rv6ToeLeXHNX43PTsCYgQZnhBxeRwNmtC9FaQgExc5',
   // access_token_key: '799057205119123456-PE3tV1pYtOEyDpUdV8i3P3UjjBJ0OTN',
   // access_token_secret: '03RvoJ1rHN7AmgiE6rsecJ4DXVCxIqTfywDmu6fSdbuH9'
@@ -57,9 +57,14 @@ module.exports = function(app) {
     // =============================================================
 
     passport.use(new Strategy({
-            consumerKey: '3YQoTNAeLXqedFytaYsm7XAqv',
-            consumerSecret: 'lXebEZx5rv6ToeLeXHNX43PTsCYgQZnhBxeRwNmtC9FaQgExc5',
-            callbackURL: 'http://litterbot.herokuapp.com/login/twitter/return'
+            // consumerKey: '3YQoTNAeLXqedFytaYsm7XAqv',
+            // consumerSecret: 'lXebEZx5rv6ToeLeXHNX43PTsCYgQZnhBxeRwNmtC9FaQgExc5',
+            // callbackURL: 'http://litterbot.herokuapp.com/login/twitter/return'
+
+            consumerKey: keys.passportKeys.consumerKey,
+            consumerSecret: keys.passportKeys.consumerSecret,
+            callbackURL: keys.passportKeys.callbackURL
+
         },
         function(token, tokenSecret, profile, cb) {
             // In this example, the user's Twitter profile is supplied as the user
@@ -200,8 +205,15 @@ module.exports = function(app) {
             res.json(data);
         })
 
-        var params = { status: eventCreated.eventName + "\n" + eventCreated.addressOne + "\n" + eventCreated.city + "\n" + eventCreated.cleanupDate +
-                     "\n" + eventCreated.cleanupTime }
+        var moreInfo = "More Info: https://litterbot.herokuapp.com/find"
+        var params = { status: eventCreated.eventName + 
+                "\n" + eventCreated.cleanupDate +
+                "\n" + eventCreated.cleanupTime + 
+                "\n" + eventCreated.addressOne + 
+               "\n" + eventCreated.city + 
+                "\n" + moreInfo}
+
+
 
         T.post('statuses/update', params, function(err, data, response) {
             console.log(data)

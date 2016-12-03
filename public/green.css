@@ -14,6 +14,43 @@
 	color: black;
 }
 
+.dates{
+	min-height: 100px;
+	line-height: 21px;
+	padding-top: 16px;
+	text-align: center;
+}
+
+.containerEvents{
+    width: 97%;
+    margin-left: 13px;
+}
+.details{
+	text-align: left;
+	font-size:13px;
+	min-height: 100px;
+}
+.monthDisplayed{
+    font-size: 16px;
+    color: #FFF;
+}
+
+.dateDisplayed{
+    font-size: 26px;
+    color: #FFF;	
+}
+
+.dayDisplayed{
+	font-size: 19px;
+    color: #FFF;
+}
+
+.eventDisplayed{
+	font-size: 15px;
+	font-weight: bold;
+
+}
+
 body{
 	/*background-color: #DAF2F7;*/
 	background-color:  #e8f7e8;
