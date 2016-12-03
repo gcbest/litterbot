@@ -29,12 +29,17 @@
   </nav>
 
   <div class="container">
-    <h4>Check Out These Upcoming Cleanup Events!</h4>
-  </div>
 
-  <div id="map" style="width:100%;height:500px"></div>
+    <h1>Check Out These Upcoming Cleanup Events!</h1>
+    <div id="map" style="width:100%;height:500px"></div>
 
-    
+    <div class="row">
+      <div class="col s12 m12">  
+        <div id="eventsShown"></div>
+      </div>
+
+    </div>
+  </div>  
 
   <script type="text/javascript" src="green.js"></script>
  
@@ -42,6 +47,49 @@
  
 <script type="text/javascript">
 // var express = require('express');
+var currentURL = window.location.origin;
+
+// var eventsDisplayed = [];
+  $.ajax({ 
+    url: currentURL +"/api/eventsCreated",
+  }).done(function( data ) {
+    console.log(data);
+
+    // for(i=0; i<data.length; i++){
+
+      // var eachEvent = $("<h1>");
+      // eachEvent.attr('class', 'eventHeader')    
+      // $("#eventsShown").append("<h4 class='eventsHeader'>" +data[i].eventName + "</h4><br>");
+      // $("#eventsShown").append("<b>Location:</b><br>" + data[i].addressOne + "<br>");
+      // $("#eventsShown").append(data[i].city + ", " + data[i].state + " " + data[i].zipCode+ "<br>");
+      // $("#eventsShown").append("<b>Date:</b><br>" + data[i].cleanupDate + "<br>");
+      // $("#eventsShown").append("<b>Time</b><br>" + data[i].cleanupTime + "<br>");
+      // $("#eventsShown").append("<b>Description:</b><br>" + data[i].eventDescription + "<br>");
+      // $("#eventsShown").append("<b>Hosted By:</b><br>" + data[i].userName + "<br>");
+      // $("#eventsShown").append("<hr>");
+
+      // console.log("================")
+      // console.log("Events Displayed: ", eventsDisplayed);
+      // console.log("Each Event: ", eachEvent);
+      // eventsDisplayed.push(eachEvent);
+
+      // console.log("================")
+      // console.log(data[i].eventName);
+      // console.log(data[i].addressOne);
+      // console.log(data[i].addressTwo);
+      // console.log(data[i].city);
+      // console.log(data[i].state);
+      // console.log(data[i].zipCode);
+      // console.log(data[i].cleanupDate);
+      // console.log(data[i].cleanupTime);
+      // console.log(data[i].eventDescription);
+      // console.log(data[i].userName);
+
+      // $("#eventsShown").append(eventsDisplayed);
+
+
+
+
 
  var latLng = [];
   // Try HTML5 geolocation.
@@ -54,25 +102,129 @@
        var userLng = parseFloat(lng);
       
   var myCenter = new google.maps.LatLng(userLat,userLng);
+  var geocoder = new google.maps.Geocoder();
   var mapCanvas = document.getElementById("map");
-  var mapOptions = {center: myCenter, zoom: 5};
+  var mapOptions = {center: myCenter, zoom: 10};
   var map = new google.maps.Map(mapCanvas, mapOptions);
-  var marker = new google.maps.Marker({position:myCenter});
-  marker.setMap(map);
+  // var marker = new google.maps.Marker({position:myCenter});
+  // marker.setMap(map);
 
-  app.get('/api/cleanups', function(req, res){
-    res.json(cleanups);
-    console.log(res)
+ 
+   
+    console.log(data);
 
-  });
+    var markers = [];
+
+    for(i=0; i<data.length; i++){
+
+      // var eachEvent = data[i].eventName + 
+      //                 data[i].addressOne;
+       $("#eventsShown").append("<h4 class='eventsHeader'>" +data[i].eventName + "</h4><br>");
+      $("#eventsShown").append("<b>Location:</b><br>" + data[i].addressOne + "<br>");
+      $("#eventsShown").append(data[i].city + ", " + data[i].state + " " + data[i].zipCode+ "<br>");
+      $("#eventsShown").append("<b>Date:</b><br>" + data[i].cleanupDate + "<br>");
+      $("#eventsShown").append("<b>Time</b><br>" + data[i].cleanupTime + "<br>");
+      $("#eventsShown").append("<b>Description:</b><br>" + data[i].eventDescription + "<br>");
+      $("#eventsShown").append("<b>Hosted By:</b><br>" + data[i].userName + "<br>");
+      $("#eventsShown").append("<hr>");
+      // console.log("================")
+      // console.log("Events Displayed: ", eventsDisplayed);
+      // console.log("Each Event: ", eachEvent);
+      // eventsDisplayed.push(eachEvent);
+
+      // console.log("================")
+      // console.log(data[i].eventName);
+      // console.log(data[i].addressOne);
+      // console.log(data[i].addressTwo);
+      // console.log(data[i].city);
+      // console.log(data[i].state);
+      // console.log(data[i].zipCode);
+      // console.log(data[i].cleanupDate);
+      // console.log(data[i].cleanupTime);
+      // console.log(data[i].eventDescription);
+      // console.log(data[i].userName);
+
+      // $("#eventsShown").append(eventsDisplayed);
+
+      var address = (data[i].addressOne + ", " + data[i].city + ", " + data[i].state)
+      console.log(address)
+      var eventName = (data[i].eventName)
+      var cleanupDate = (data[i].cleanupDate + " " + data[i].cleanupTime)
+      
+      var cleanupDescription = (data[i].eventDescription)
+      var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyDDbTk5_BebVOdBaL8INYJ7F_M4DuvwL6g"
+      $.ajax({url: queryURL, method: 'GET'}).done(function(response){ 
+       
+       console.log(response) 
+        // Create a "highlighted location" marker color for when the user
+        // mouses over the marker.
+        
+        var eventlat = (response.results[0].geometry.location.lat)
+        var eventlng = (response.results[0].geometry.location.lng)
+        var latParse = parseFloat(eventlat)
+        var lngParse = parseFloat(eventlng)
+        var position = new google.maps.LatLng(latParse,lngParse);
+
+         var defaultIcon = ("https://raw.githubusercontent.com/gcbest/litterbot/master/public/images/Imported%20piskel.gif")
+        // Create a "highlighted location" marker color for when the user
+        // mouses over the marker.
+        var highlightedIcon = ("https://raw.githubusercontent.com/gcbest/litterbot/master/public/images/Imported%20piskel_hover.png")
+        
+        var eventMarker = new google.maps.Marker({icon: defaultIcon, animation: google.maps.Animation.DROP, position: position, title: eventName, date: cleanupDate, description: cleanupDescription, address: address });
+        eventMarker.setMap(map)
+
+        eventMarker.addListener('mouseover', function() {
+            this.setIcon(highlightedIcon);
+          });
+          eventMarker.addListener('mouseout', function() {
+            this.setIcon(defaultIcon);
+          });
+        
+        markers.push(eventMarker)
+        var largeInfowindow = new google.maps.InfoWindow();
+         eventMarker.addListener('click', function() {
+            populateInfoWindow(this, largeInfowindow);
+          });
+
+          function populateInfoWindow(eventMarker, infowindow) {
+        // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != eventMarker) {
+          infowindow.marker = eventMarker;
+          infowindow.setContent('<div><h5 id="popupHeader">' + eventMarker.title + '</h5><br><b>' + eventMarker.address + "<br><br>" + eventMarker.date + "<br><br>" + eventMarker.description + '</b></div>');
+          infowindow.open(map, eventMarker);
+          // Make sure the marker property is cleared if the infowindow is closed.
+          infowindow.addListener('closeclick', function() {
+            infowindow.marker = null;
+          });
+        }
+      }
+         
+         
+       
+      
+      });
+
+
+  }
+});
+}
 
 
 });
- }
+ 
+
+  
+
+
+
+
+
+
+
   
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF1z4D8_qAlnNA6PDoT8UrYOjhajWyP1Y"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDbTk5_BebVOdBaL8INYJ7F_M4DuvwL6g"></script>
 
 </body>
 </html>
