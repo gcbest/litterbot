@@ -122,7 +122,26 @@ $( document ).ready(function() {
   $( "#submitBTN" ).click(function(event) {
     //prevents page from refreshing
     event.preventDefault();
+
+    //split date
+    //day 0-3
+    //month 7-9
+    //date 16-17
+
+    //Sunday December 18 2016
+
+    var displayDate = $('#cleanupDate').val().trim();
+    var splitDate = displayDate.split("")
+    console.log(splitDate);
     
+    var day = splitDate[0] + splitDate[1] + splitDate[2];
+    var month = splitDate[7] + splitDate[8] + splitDate[9];
+    var date = splitDate[16] + splitDate[17];
+
+    console.log("Day: ", day);
+    console.log("Month: ", month);
+    console.log("Date: ", date);
+
     //grabs information from form and stores them into an object
     var newEvent = {
         eventName: $('#eventName').val().trim(),
@@ -135,11 +154,15 @@ $( document ).ready(function() {
         cleanupDate: $('#cleanupDate').val().trim(),
         cleanupTime: $('#cleanupTime').val().trim(),
         eventDescription: $('#eventDescription').val().trim(),
+        day: day,
+        month: month,
+        date: date
+
           };
-    console.log(newEvent);
+    console.log("quick", newEvent);
     //clears form after submit
-    $('#creatingEvent input[type="text"]').val('');
-    $('#creatingEvent textarea').val('');
+    // $('#creatingEvent input[type="text"]').val('');
+    // $('#creatingEvent textarea').val('');
 //AJAX CALL THAT POSTS 
           var currentURL = window.location.origin;
           $.post(currentURL + "/api/eventsCreated", newEvent, function(data){

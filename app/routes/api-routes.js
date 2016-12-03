@@ -23,20 +23,7 @@ var T = new Twit({
 // =============================================================
 module.exports = function(app) {
 
-    // Search for Specific Character (or all characters) then provides JSON
-    // app.get('/api/:cleanups?', function(req, res) {
-    //     console.log(req.body)
-            // If the user provides a specific character in the URL...
-        // if (req.params.cleanups) {
 
-            // Then display the JSON for ONLY that character.
-            // (Note how we're using the ORM here to run our searches)
-    //         orm.searchCleanup(req.params.cleanups, function(data) {
-    //             res.json(data);
-    //         })
-    //     }
-
-    // });
     app.get('/api/eventsCreated', function(req, res) {
         orm.events(function(data) {
             res.json(data);
@@ -193,8 +180,13 @@ module.exports = function(app) {
             res.json(data);
         })
 
-        var params = { status: eventCreated.eventName + "\n" + eventCreated.addressOne + "\n" + eventCreated.city + "\n" + eventCreated.cleanupDate +
-                     "\n" + eventCreated.cleanupTime }
+        var moreInfo = "More Info: https://litterbot.herokuapp.com/find"
+        var params = { status: eventCreated.eventName + 
+                "\n" + eventCreated.cleanupDate +
+                "\n" + eventCreated.cleanupTime + 
+                "\n" + eventCreated.addressOne + 
+                "\n" + eventCreated.city + 
+                "\n" + moreInfo}
 
         T.post('statuses/update', params, function(err, data, response) {
             console.log(data)
