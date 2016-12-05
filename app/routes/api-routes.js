@@ -8,7 +8,7 @@ var Strategy = require('passport-twitter').Strategy;
 var path = require('path');
 var StrategyLocal = require('passport-local').Strategy;
 var db = require('../db');
-var keys = require('../config/keys.js');
+var keys = require('../keys.js');
 
 // Twitter API
 // =============================================================
