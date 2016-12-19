@@ -1,8 +1,4 @@
-
-
-
-
-# Title of Application
+# LitterBot
 
 [![Name of Label](https://img.shields.io/badge/addtexthere-changestatus-blue.svg)](www.Placelinktowebsitehere.com)
 [![Name of Label](https://img.shields.io/badge/addtexthere-changestatus-green.svg)](www.Placelinktowebsitehere.com)
@@ -11,7 +7,7 @@
 ## Summary
 This app is a Twitterbot which allows users to create an account and upload images of dirty areas in their community in need of clean ups.  It also allows users to create events with other people in the community to allow them to come together to clean up and polluted areas.  This information is tweeted out on our Twitter account.
 
-![image Description](https://drive.google.com/file/d/0BzZs28rxv8EwZGpNR2UxYTM4V0E/view?usp=sharing)
+![image Description](https://github.com/gcbest/litterbot/blob/master/public/images/screenshot.png)
 
 
 ## How to use my App
@@ -20,7 +16,8 @@ This app is a Twitterbot which allows users to create an account and upload imag
 You can test a fully working live demo at
 
 [Link to project](https://litterbot.herokuapp.com/home)
-[Twitter Handle](https://twitter.com/@litterbot10)
+
+[@litterbot10](https://twitter.com/@litterbot10)
 
 
 #### Dummy Login
@@ -33,8 +30,8 @@ Password: johndoecleans!
 ## Technology Used
  ![](http://williamavasquez.herokuapp.com/img/js.png)
  ![](http://williamavasquez.herokuapp.com/img/node.png)
- ![](http://williamavasquez.herokuapp.com/img/mongo.png)
- ![](http://williamavasquez.herokuapp.com/img/react.png)
+ ![](http://williamavasquez.herokuapp.com/img/mysql.png)
+
 
 
 ## Collaborators and Team
