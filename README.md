@@ -15,7 +15,7 @@ This app is a Twitterbot which allows users to create an account and upload imag
 ### Online Demo
 You can test a fully working live demo at
 
-[Link to project](https://litterbot.herokuapp.com/home)
+[https://litterbot.herokuapp.com/home](https://litterbot.herokuapp.com/home)
 
 [@litterbot10](https://twitter.com/@litterbot10)
 
