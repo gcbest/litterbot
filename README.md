@@ -1,9 +1,5 @@
 # LitterBot
 
-[![Name of Label](https://img.shields.io/badge/addtexthere-changestatus-blue.svg)](www.Placelinktowebsitehere.com)
-[![Name of Label](https://img.shields.io/badge/addtexthere-changestatus-green.svg)](www.Placelinktowebsitehere.com)
-[![Name of Label](https://img.shields.io/badge/addtexthere-changestatus-pink.svg)](www.Placelinktowebsitehere.com)
-
 ## Summary
 This app is a Twitterbot which allows users to create an account and upload images of dirty areas in their community in need of clean ups.  It also allows users to create events with other people in the community to allow them to come together to clean up and polluted areas.  This information is tweeted out on our Twitter account.
 
